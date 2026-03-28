@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
+import axios from 'axios';
 
 const features = [
   { icon: Link2, title: "Paste & Go", desc: "Just paste the product link. We handle the rest." },
@@ -16,10 +17,21 @@ const features = [
 const Index = () => {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast.success("You're on the list! We'll be in touch.");
+
+      try {
+        const response = await axios.post('https://pfldvbnga243udthe6wd4lfdum0qwxdc.lambda-url.us-east-2.on.aws', {
+          email: email
+        });
+
+        console.log('Success:', response.data);
+        toast.success("You're on the list! We'll be in touch.");
+        setEmail(''); // Clear input on success
+      } catch (error) {
+        console.error('Submission error:', error.response?.data || error.message);
+      }
       setEmail("");
     }
   };
