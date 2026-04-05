@@ -22,7 +22,7 @@ const Index = () => {
     if (email) {
 
       try {
-        await axios.post('https://pfldvbnga243udthe6wd4lfdum0qwxdc.lambda-url.us-east-2.on.aws', {
+        await axios.post('https://rt0m7k6oki.execute-api.us-east-2.amazonaws.com/prod/api/v1/mail-subscriptions', {
           email: email
         });
         
